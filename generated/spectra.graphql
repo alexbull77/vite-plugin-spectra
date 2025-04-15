@@ -1,0 +1,3414 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Float". All fields are combined with logical 'AND'.
+"""
+input Float_comparison_exp {
+  _eq: Float
+  _gt: Float
+  _gte: Float
+  _in: [Float!]
+  _is_null: Boolean
+  _lt: Float
+  _lte: Float
+  _neq: Float
+  _nin: [Float!]
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "cpu_metrics"
+"""
+type cpu_metrics {
+  estimated_load_ms: Float!
+  id: uuid!
+  microfrontend_id: uuid!
+  recorded_at: timestamptz!
+  session_id: uuid!
+}
+
+"""
+aggregated selection of "cpu_metrics"
+"""
+type cpu_metrics_aggregate {
+  aggregate: cpu_metrics_aggregate_fields
+  nodes: [cpu_metrics!]!
+}
+
+"""
+aggregate fields of "cpu_metrics"
+"""
+type cpu_metrics_aggregate_fields {
+  avg: cpu_metrics_avg_fields
+  count(columns: [cpu_metrics_select_column!], distinct: Boolean): Int!
+  max: cpu_metrics_max_fields
+  min: cpu_metrics_min_fields
+  stddev: cpu_metrics_stddev_fields
+  stddev_pop: cpu_metrics_stddev_pop_fields
+  stddev_samp: cpu_metrics_stddev_samp_fields
+  sum: cpu_metrics_sum_fields
+  var_pop: cpu_metrics_var_pop_fields
+  var_samp: cpu_metrics_var_samp_fields
+  variance: cpu_metrics_variance_fields
+}
+
+"""aggregate avg on columns"""
+type cpu_metrics_avg_fields {
+  estimated_load_ms: Float
+}
+
+"""
+Boolean expression to filter rows from the table "cpu_metrics". All fields are combined with a logical 'AND'.
+"""
+input cpu_metrics_bool_exp {
+  _and: [cpu_metrics_bool_exp!]
+  _not: cpu_metrics_bool_exp
+  _or: [cpu_metrics_bool_exp!]
+  estimated_load_ms: Float_comparison_exp
+  id: uuid_comparison_exp
+  microfrontend_id: uuid_comparison_exp
+  recorded_at: timestamptz_comparison_exp
+  session_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "cpu_metrics"
+"""
+enum cpu_metrics_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  cpu_metrics_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "cpu_metrics"
+"""
+input cpu_metrics_inc_input {
+  estimated_load_ms: Float
+}
+
+"""
+input type for inserting data into table "cpu_metrics"
+"""
+input cpu_metrics_insert_input {
+  estimated_load_ms: Float
+  id: uuid
+  microfrontend_id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate max on columns"""
+type cpu_metrics_max_fields {
+  estimated_load_ms: Float
+  id: uuid
+  microfrontend_id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate min on columns"""
+type cpu_metrics_min_fields {
+  estimated_load_ms: Float
+  id: uuid
+  microfrontend_id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""
+response of any mutation on the table "cpu_metrics"
+"""
+type cpu_metrics_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [cpu_metrics!]!
+}
+
+"""
+on_conflict condition type for table "cpu_metrics"
+"""
+input cpu_metrics_on_conflict {
+  constraint: cpu_metrics_constraint!
+  update_columns: [cpu_metrics_update_column!]! = []
+  where: cpu_metrics_bool_exp
+}
+
+"""Ordering options when selecting data from "cpu_metrics"."""
+input cpu_metrics_order_by {
+  estimated_load_ms: order_by
+  id: order_by
+  microfrontend_id: order_by
+  recorded_at: order_by
+  session_id: order_by
+}
+
+"""primary key columns input for table: cpu_metrics"""
+input cpu_metrics_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "cpu_metrics"
+"""
+enum cpu_metrics_select_column {
+  """column name"""
+  estimated_load_ms
+
+  """column name"""
+  id
+
+  """column name"""
+  microfrontend_id
+
+  """column name"""
+  recorded_at
+
+  """column name"""
+  session_id
+}
+
+"""
+input type for updating data in table "cpu_metrics"
+"""
+input cpu_metrics_set_input {
+  estimated_load_ms: Float
+  id: uuid
+  microfrontend_id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate stddev on columns"""
+type cpu_metrics_stddev_fields {
+  estimated_load_ms: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type cpu_metrics_stddev_pop_fields {
+  estimated_load_ms: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type cpu_metrics_stddev_samp_fields {
+  estimated_load_ms: Float
+}
+
+"""
+Streaming cursor of the table "cpu_metrics"
+"""
+input cpu_metrics_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: cpu_metrics_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input cpu_metrics_stream_cursor_value_input {
+  estimated_load_ms: Float
+  id: uuid
+  microfrontend_id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate sum on columns"""
+type cpu_metrics_sum_fields {
+  estimated_load_ms: Float
+}
+
+"""
+update columns of table "cpu_metrics"
+"""
+enum cpu_metrics_update_column {
+  """column name"""
+  estimated_load_ms
+
+  """column name"""
+  id
+
+  """column name"""
+  microfrontend_id
+
+  """column name"""
+  recorded_at
+
+  """column name"""
+  session_id
+}
+
+input cpu_metrics_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: cpu_metrics_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: cpu_metrics_set_input
+
+  """filter the rows which have to be updated"""
+  where: cpu_metrics_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type cpu_metrics_var_pop_fields {
+  estimated_load_ms: Float
+}
+
+"""aggregate var_samp on columns"""
+type cpu_metrics_var_samp_fields {
+  estimated_load_ms: Float
+}
+
+"""aggregate variance on columns"""
+type cpu_metrics_variance_fields {
+  estimated_load_ms: Float
+}
+
+"""ordering argument of a cursor"""
+enum cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
+}
+
+"""
+columns and relationships of "errors"
+"""
+type errors {
+  created_at: timestamptz!
+  id: uuid!
+  level: String!
+  message: String!
+  meta(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  microfrontend_id: uuid!
+}
+
+"""
+aggregated selection of "errors"
+"""
+type errors_aggregate {
+  aggregate: errors_aggregate_fields
+  nodes: [errors!]!
+}
+
+"""
+aggregate fields of "errors"
+"""
+type errors_aggregate_fields {
+  count(columns: [errors_select_column!], distinct: Boolean): Int!
+  max: errors_max_fields
+  min: errors_min_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input errors_append_input {
+  meta: jsonb
+}
+
+"""
+Boolean expression to filter rows from the table "errors". All fields are combined with a logical 'AND'.
+"""
+input errors_bool_exp {
+  _and: [errors_bool_exp!]
+  _not: errors_bool_exp
+  _or: [errors_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  level: String_comparison_exp
+  message: String_comparison_exp
+  meta: jsonb_comparison_exp
+  microfrontend_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "errors"
+"""
+enum errors_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  errors_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input errors_delete_at_path_input {
+  meta: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input errors_delete_elem_input {
+  meta: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input errors_delete_key_input {
+  meta: String
+}
+
+"""
+input type for inserting data into table "errors"
+"""
+input errors_insert_input {
+  created_at: timestamptz
+  id: uuid
+  level: String
+  message: String
+  meta: jsonb
+  microfrontend_id: uuid
+}
+
+"""aggregate max on columns"""
+type errors_max_fields {
+  created_at: timestamptz
+  id: uuid
+  level: String
+  message: String
+  microfrontend_id: uuid
+}
+
+"""aggregate min on columns"""
+type errors_min_fields {
+  created_at: timestamptz
+  id: uuid
+  level: String
+  message: String
+  microfrontend_id: uuid
+}
+
+"""
+response of any mutation on the table "errors"
+"""
+type errors_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [errors!]!
+}
+
+"""
+on_conflict condition type for table "errors"
+"""
+input errors_on_conflict {
+  constraint: errors_constraint!
+  update_columns: [errors_update_column!]! = []
+  where: errors_bool_exp
+}
+
+"""Ordering options when selecting data from "errors"."""
+input errors_order_by {
+  created_at: order_by
+  id: order_by
+  level: order_by
+  message: order_by
+  meta: order_by
+  microfrontend_id: order_by
+}
+
+"""primary key columns input for table: errors"""
+input errors_pk_columns_input {
+  id: uuid!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input errors_prepend_input {
+  meta: jsonb
+}
+
+"""
+select columns of table "errors"
+"""
+enum errors_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  level
+
+  """column name"""
+  message
+
+  """column name"""
+  meta
+
+  """column name"""
+  microfrontend_id
+}
+
+"""
+input type for updating data in table "errors"
+"""
+input errors_set_input {
+  created_at: timestamptz
+  id: uuid
+  level: String
+  message: String
+  meta: jsonb
+  microfrontend_id: uuid
+}
+
+"""
+Streaming cursor of the table "errors"
+"""
+input errors_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: errors_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input errors_stream_cursor_value_input {
+  created_at: timestamptz
+  id: uuid
+  level: String
+  message: String
+  meta: jsonb
+  microfrontend_id: uuid
+}
+
+"""
+update columns of table "errors"
+"""
+enum errors_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  level
+
+  """column name"""
+  message
+
+  """column name"""
+  meta
+
+  """column name"""
+  microfrontend_id
+}
+
+input errors_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: errors_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: errors_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: errors_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: errors_delete_key_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: errors_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: errors_set_input
+
+  """filter the rows which have to be updated"""
+  where: errors_bool_exp!
+}
+
+"""
+columns and relationships of "fps_logs"
+"""
+type fps_logs {
+  fps: Int!
+  id: uuid!
+  recorded_at: timestamptz!
+  session_id: uuid!
+}
+
+"""
+aggregated selection of "fps_logs"
+"""
+type fps_logs_aggregate {
+  aggregate: fps_logs_aggregate_fields
+  nodes: [fps_logs!]!
+}
+
+"""
+aggregate fields of "fps_logs"
+"""
+type fps_logs_aggregate_fields {
+  avg: fps_logs_avg_fields
+  count(columns: [fps_logs_select_column!], distinct: Boolean): Int!
+  max: fps_logs_max_fields
+  min: fps_logs_min_fields
+  stddev: fps_logs_stddev_fields
+  stddev_pop: fps_logs_stddev_pop_fields
+  stddev_samp: fps_logs_stddev_samp_fields
+  sum: fps_logs_sum_fields
+  var_pop: fps_logs_var_pop_fields
+  var_samp: fps_logs_var_samp_fields
+  variance: fps_logs_variance_fields
+}
+
+"""aggregate avg on columns"""
+type fps_logs_avg_fields {
+  fps: Float
+}
+
+"""
+Boolean expression to filter rows from the table "fps_logs". All fields are combined with a logical 'AND'.
+"""
+input fps_logs_bool_exp {
+  _and: [fps_logs_bool_exp!]
+  _not: fps_logs_bool_exp
+  _or: [fps_logs_bool_exp!]
+  fps: Int_comparison_exp
+  id: uuid_comparison_exp
+  recorded_at: timestamptz_comparison_exp
+  session_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "fps_logs"
+"""
+enum fps_logs_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  performance_snapshots_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "fps_logs"
+"""
+input fps_logs_inc_input {
+  fps: Int
+}
+
+"""
+input type for inserting data into table "fps_logs"
+"""
+input fps_logs_insert_input {
+  fps: Int
+  id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate max on columns"""
+type fps_logs_max_fields {
+  fps: Int
+  id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate min on columns"""
+type fps_logs_min_fields {
+  fps: Int
+  id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""
+response of any mutation on the table "fps_logs"
+"""
+type fps_logs_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [fps_logs!]!
+}
+
+"""
+on_conflict condition type for table "fps_logs"
+"""
+input fps_logs_on_conflict {
+  constraint: fps_logs_constraint!
+  update_columns: [fps_logs_update_column!]! = []
+  where: fps_logs_bool_exp
+}
+
+"""Ordering options when selecting data from "fps_logs"."""
+input fps_logs_order_by {
+  fps: order_by
+  id: order_by
+  recorded_at: order_by
+  session_id: order_by
+}
+
+"""primary key columns input for table: fps_logs"""
+input fps_logs_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "fps_logs"
+"""
+enum fps_logs_select_column {
+  """column name"""
+  fps
+
+  """column name"""
+  id
+
+  """column name"""
+  recorded_at
+
+  """column name"""
+  session_id
+}
+
+"""
+input type for updating data in table "fps_logs"
+"""
+input fps_logs_set_input {
+  fps: Int
+  id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate stddev on columns"""
+type fps_logs_stddev_fields {
+  fps: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type fps_logs_stddev_pop_fields {
+  fps: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type fps_logs_stddev_samp_fields {
+  fps: Float
+}
+
+"""
+Streaming cursor of the table "fps_logs"
+"""
+input fps_logs_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: fps_logs_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input fps_logs_stream_cursor_value_input {
+  fps: Int
+  id: uuid
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate sum on columns"""
+type fps_logs_sum_fields {
+  fps: Int
+}
+
+"""
+update columns of table "fps_logs"
+"""
+enum fps_logs_update_column {
+  """column name"""
+  fps
+
+  """column name"""
+  id
+
+  """column name"""
+  recorded_at
+
+  """column name"""
+  session_id
+}
+
+input fps_logs_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: fps_logs_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: fps_logs_set_input
+
+  """filter the rows which have to be updated"""
+  where: fps_logs_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type fps_logs_var_pop_fields {
+  fps: Float
+}
+
+"""aggregate var_samp on columns"""
+type fps_logs_var_samp_fields {
+  fps: Float
+}
+
+"""aggregate variance on columns"""
+type fps_logs_variance_fields {
+  fps: Float
+}
+
+scalar jsonb
+
+input jsonb_cast_exp {
+  String: String_comparison_exp
+}
+
+"""
+Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'.
+"""
+input jsonb_comparison_exp {
+  _cast: jsonb_cast_exp
+
+  """is the column contained in the given json value"""
+  _contained_in: jsonb
+
+  """does the column contain the given json value at the top level"""
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+
+  """does the string exist as a top-level key in the column"""
+  _has_key: String
+
+  """do all of these strings exist as top-level keys in the column"""
+  _has_keys_all: [String!]
+
+  """do any of these strings exist as top-level keys in the column"""
+  _has_keys_any: [String!]
+  _in: [jsonb!]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb!]
+}
+
+"""
+columns and relationships of "memory_logs"
+"""
+type memory_logs {
+  heap_limit: Float!
+  id: uuid!
+  js_heap_limit_mb: Float!
+  js_heap_total_mb: Float!
+  recorded_at: timestamptz!
+  session_id: uuid!
+}
+
+"""
+aggregated selection of "memory_logs"
+"""
+type memory_logs_aggregate {
+  aggregate: memory_logs_aggregate_fields
+  nodes: [memory_logs!]!
+}
+
+"""
+aggregate fields of "memory_logs"
+"""
+type memory_logs_aggregate_fields {
+  avg: memory_logs_avg_fields
+  count(columns: [memory_logs_select_column!], distinct: Boolean): Int!
+  max: memory_logs_max_fields
+  min: memory_logs_min_fields
+  stddev: memory_logs_stddev_fields
+  stddev_pop: memory_logs_stddev_pop_fields
+  stddev_samp: memory_logs_stddev_samp_fields
+  sum: memory_logs_sum_fields
+  var_pop: memory_logs_var_pop_fields
+  var_samp: memory_logs_var_samp_fields
+  variance: memory_logs_variance_fields
+}
+
+"""aggregate avg on columns"""
+type memory_logs_avg_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""
+Boolean expression to filter rows from the table "memory_logs". All fields are combined with a logical 'AND'.
+"""
+input memory_logs_bool_exp {
+  _and: [memory_logs_bool_exp!]
+  _not: memory_logs_bool_exp
+  _or: [memory_logs_bool_exp!]
+  heap_limit: Float_comparison_exp
+  id: uuid_comparison_exp
+  js_heap_limit_mb: Float_comparison_exp
+  js_heap_total_mb: Float_comparison_exp
+  recorded_at: timestamptz_comparison_exp
+  session_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "memory_logs"
+"""
+enum memory_logs_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  memory_logs_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "memory_logs"
+"""
+input memory_logs_inc_input {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""
+input type for inserting data into table "memory_logs"
+"""
+input memory_logs_insert_input {
+  heap_limit: Float
+  id: uuid
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate max on columns"""
+type memory_logs_max_fields {
+  heap_limit: Float
+  id: uuid
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate min on columns"""
+type memory_logs_min_fields {
+  heap_limit: Float
+  id: uuid
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""
+response of any mutation on the table "memory_logs"
+"""
+type memory_logs_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [memory_logs!]!
+}
+
+"""
+on_conflict condition type for table "memory_logs"
+"""
+input memory_logs_on_conflict {
+  constraint: memory_logs_constraint!
+  update_columns: [memory_logs_update_column!]! = []
+  where: memory_logs_bool_exp
+}
+
+"""Ordering options when selecting data from "memory_logs"."""
+input memory_logs_order_by {
+  heap_limit: order_by
+  id: order_by
+  js_heap_limit_mb: order_by
+  js_heap_total_mb: order_by
+  recorded_at: order_by
+  session_id: order_by
+}
+
+"""primary key columns input for table: memory_logs"""
+input memory_logs_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "memory_logs"
+"""
+enum memory_logs_select_column {
+  """column name"""
+  heap_limit
+
+  """column name"""
+  id
+
+  """column name"""
+  js_heap_limit_mb
+
+  """column name"""
+  js_heap_total_mb
+
+  """column name"""
+  recorded_at
+
+  """column name"""
+  session_id
+}
+
+"""
+input type for updating data in table "memory_logs"
+"""
+input memory_logs_set_input {
+  heap_limit: Float
+  id: uuid
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate stddev on columns"""
+type memory_logs_stddev_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type memory_logs_stddev_pop_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type memory_logs_stddev_samp_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""
+Streaming cursor of the table "memory_logs"
+"""
+input memory_logs_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: memory_logs_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input memory_logs_stream_cursor_value_input {
+  heap_limit: Float
+  id: uuid
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+  recorded_at: timestamptz
+  session_id: uuid
+}
+
+"""aggregate sum on columns"""
+type memory_logs_sum_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""
+update columns of table "memory_logs"
+"""
+enum memory_logs_update_column {
+  """column name"""
+  heap_limit
+
+  """column name"""
+  id
+
+  """column name"""
+  js_heap_limit_mb
+
+  """column name"""
+  js_heap_total_mb
+
+  """column name"""
+  recorded_at
+
+  """column name"""
+  session_id
+}
+
+input memory_logs_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: memory_logs_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: memory_logs_set_input
+
+  """filter the rows which have to be updated"""
+  where: memory_logs_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type memory_logs_var_pop_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""aggregate var_samp on columns"""
+type memory_logs_var_samp_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""aggregate variance on columns"""
+type memory_logs_variance_fields {
+  heap_limit: Float
+  js_heap_limit_mb: Float
+  js_heap_total_mb: Float
+}
+
+"""
+columns and relationships of "microfrontends"
+"""
+type microfrontends {
+  id: uuid!
+  loaded_at: timestamptz!
+  name: String!
+  session_id: uuid!
+  version: String!
+}
+
+"""
+aggregated selection of "microfrontends"
+"""
+type microfrontends_aggregate {
+  aggregate: microfrontends_aggregate_fields
+  nodes: [microfrontends!]!
+}
+
+"""
+aggregate fields of "microfrontends"
+"""
+type microfrontends_aggregate_fields {
+  count(columns: [microfrontends_select_column!], distinct: Boolean): Int!
+  max: microfrontends_max_fields
+  min: microfrontends_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "microfrontends". All fields are combined with a logical 'AND'.
+"""
+input microfrontends_bool_exp {
+  _and: [microfrontends_bool_exp!]
+  _not: microfrontends_bool_exp
+  _or: [microfrontends_bool_exp!]
+  id: uuid_comparison_exp
+  loaded_at: timestamptz_comparison_exp
+  name: String_comparison_exp
+  session_id: uuid_comparison_exp
+  version: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "microfrontends"
+"""
+enum microfrontends_constraint {
+  """
+  unique or primary key constraint on columns "name", "version"
+  """
+  microfrontends_name_version_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  microfrontends_pkey
+}
+
+"""
+input type for inserting data into table "microfrontends"
+"""
+input microfrontends_insert_input {
+  id: uuid
+  loaded_at: timestamptz
+  name: String
+  session_id: uuid
+  version: String
+}
+
+"""aggregate max on columns"""
+type microfrontends_max_fields {
+  id: uuid
+  loaded_at: timestamptz
+  name: String
+  session_id: uuid
+  version: String
+}
+
+"""aggregate min on columns"""
+type microfrontends_min_fields {
+  id: uuid
+  loaded_at: timestamptz
+  name: String
+  session_id: uuid
+  version: String
+}
+
+"""
+response of any mutation on the table "microfrontends"
+"""
+type microfrontends_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [microfrontends!]!
+}
+
+"""
+on_conflict condition type for table "microfrontends"
+"""
+input microfrontends_on_conflict {
+  constraint: microfrontends_constraint!
+  update_columns: [microfrontends_update_column!]! = []
+  where: microfrontends_bool_exp
+}
+
+"""Ordering options when selecting data from "microfrontends"."""
+input microfrontends_order_by {
+  id: order_by
+  loaded_at: order_by
+  name: order_by
+  session_id: order_by
+  version: order_by
+}
+
+"""primary key columns input for table: microfrontends"""
+input microfrontends_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "microfrontends"
+"""
+enum microfrontends_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  loaded_at
+
+  """column name"""
+  name
+
+  """column name"""
+  session_id
+
+  """column name"""
+  version
+}
+
+"""
+input type for updating data in table "microfrontends"
+"""
+input microfrontends_set_input {
+  id: uuid
+  loaded_at: timestamptz
+  name: String
+  session_id: uuid
+  version: String
+}
+
+"""
+Streaming cursor of the table "microfrontends"
+"""
+input microfrontends_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: microfrontends_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input microfrontends_stream_cursor_value_input {
+  id: uuid
+  loaded_at: timestamptz
+  name: String
+  session_id: uuid
+  version: String
+}
+
+"""
+update columns of table "microfrontends"
+"""
+enum microfrontends_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  loaded_at
+
+  """column name"""
+  name
+
+  """column name"""
+  session_id
+
+  """column name"""
+  version
+}
+
+input microfrontends_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: microfrontends_set_input
+
+  """filter the rows which have to be updated"""
+  where: microfrontends_bool_exp!
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "cpu_metrics"
+  """
+  delete_cpu_metrics(
+    """filter the rows which have to be deleted"""
+    where: cpu_metrics_bool_exp!
+  ): cpu_metrics_mutation_response
+
+  """
+  delete single row from the table: "cpu_metrics"
+  """
+  delete_cpu_metrics_by_pk(id: uuid!): cpu_metrics
+
+  """
+  delete data from the table: "errors"
+  """
+  delete_errors(
+    """filter the rows which have to be deleted"""
+    where: errors_bool_exp!
+  ): errors_mutation_response
+
+  """
+  delete single row from the table: "errors"
+  """
+  delete_errors_by_pk(id: uuid!): errors
+
+  """
+  delete data from the table: "fps_logs"
+  """
+  delete_fps_logs(
+    """filter the rows which have to be deleted"""
+    where: fps_logs_bool_exp!
+  ): fps_logs_mutation_response
+
+  """
+  delete single row from the table: "fps_logs"
+  """
+  delete_fps_logs_by_pk(id: uuid!): fps_logs
+
+  """
+  delete data from the table: "memory_logs"
+  """
+  delete_memory_logs(
+    """filter the rows which have to be deleted"""
+    where: memory_logs_bool_exp!
+  ): memory_logs_mutation_response
+
+  """
+  delete single row from the table: "memory_logs"
+  """
+  delete_memory_logs_by_pk(id: uuid!): memory_logs
+
+  """
+  delete data from the table: "microfrontends"
+  """
+  delete_microfrontends(
+    """filter the rows which have to be deleted"""
+    where: microfrontends_bool_exp!
+  ): microfrontends_mutation_response
+
+  """
+  delete single row from the table: "microfrontends"
+  """
+  delete_microfrontends_by_pk(id: uuid!): microfrontends
+
+  """
+  delete data from the table: "network_requests"
+  """
+  delete_network_requests(
+    """filter the rows which have to be deleted"""
+    where: network_requests_bool_exp!
+  ): network_requests_mutation_response
+
+  """
+  delete single row from the table: "network_requests"
+  """
+  delete_network_requests_by_pk(id: uuid!): network_requests
+
+  """
+  delete data from the table: "session"
+  """
+  delete_session(
+    """filter the rows which have to be deleted"""
+    where: session_bool_exp!
+  ): session_mutation_response
+
+  """
+  delete single row from the table: "session"
+  """
+  delete_session_by_pk(id: uuid!): session
+
+  """
+  insert data into the table: "cpu_metrics"
+  """
+  insert_cpu_metrics(
+    """the rows to be inserted"""
+    objects: [cpu_metrics_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: cpu_metrics_on_conflict
+  ): cpu_metrics_mutation_response
+
+  """
+  insert a single row into the table: "cpu_metrics"
+  """
+  insert_cpu_metrics_one(
+    """the row to be inserted"""
+    object: cpu_metrics_insert_input!
+
+    """upsert condition"""
+    on_conflict: cpu_metrics_on_conflict
+  ): cpu_metrics
+
+  """
+  insert data into the table: "errors"
+  """
+  insert_errors(
+    """the rows to be inserted"""
+    objects: [errors_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: errors_on_conflict
+  ): errors_mutation_response
+
+  """
+  insert a single row into the table: "errors"
+  """
+  insert_errors_one(
+    """the row to be inserted"""
+    object: errors_insert_input!
+
+    """upsert condition"""
+    on_conflict: errors_on_conflict
+  ): errors
+
+  """
+  insert data into the table: "fps_logs"
+  """
+  insert_fps_logs(
+    """the rows to be inserted"""
+    objects: [fps_logs_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: fps_logs_on_conflict
+  ): fps_logs_mutation_response
+
+  """
+  insert a single row into the table: "fps_logs"
+  """
+  insert_fps_logs_one(
+    """the row to be inserted"""
+    object: fps_logs_insert_input!
+
+    """upsert condition"""
+    on_conflict: fps_logs_on_conflict
+  ): fps_logs
+
+  """
+  insert data into the table: "memory_logs"
+  """
+  insert_memory_logs(
+    """the rows to be inserted"""
+    objects: [memory_logs_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: memory_logs_on_conflict
+  ): memory_logs_mutation_response
+
+  """
+  insert a single row into the table: "memory_logs"
+  """
+  insert_memory_logs_one(
+    """the row to be inserted"""
+    object: memory_logs_insert_input!
+
+    """upsert condition"""
+    on_conflict: memory_logs_on_conflict
+  ): memory_logs
+
+  """
+  insert data into the table: "microfrontends"
+  """
+  insert_microfrontends(
+    """the rows to be inserted"""
+    objects: [microfrontends_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: microfrontends_on_conflict
+  ): microfrontends_mutation_response
+
+  """
+  insert a single row into the table: "microfrontends"
+  """
+  insert_microfrontends_one(
+    """the row to be inserted"""
+    object: microfrontends_insert_input!
+
+    """upsert condition"""
+    on_conflict: microfrontends_on_conflict
+  ): microfrontends
+
+  """
+  insert data into the table: "network_requests"
+  """
+  insert_network_requests(
+    """the rows to be inserted"""
+    objects: [network_requests_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: network_requests_on_conflict
+  ): network_requests_mutation_response
+
+  """
+  insert a single row into the table: "network_requests"
+  """
+  insert_network_requests_one(
+    """the row to be inserted"""
+    object: network_requests_insert_input!
+
+    """upsert condition"""
+    on_conflict: network_requests_on_conflict
+  ): network_requests
+
+  """
+  insert data into the table: "session"
+  """
+  insert_session(
+    """the rows to be inserted"""
+    objects: [session_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: session_on_conflict
+  ): session_mutation_response
+
+  """
+  insert a single row into the table: "session"
+  """
+  insert_session_one(
+    """the row to be inserted"""
+    object: session_insert_input!
+
+    """upsert condition"""
+    on_conflict: session_on_conflict
+  ): session
+
+  """
+  update data of the table: "cpu_metrics"
+  """
+  update_cpu_metrics(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: cpu_metrics_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: cpu_metrics_set_input
+
+    """filter the rows which have to be updated"""
+    where: cpu_metrics_bool_exp!
+  ): cpu_metrics_mutation_response
+
+  """
+  update single row of the table: "cpu_metrics"
+  """
+  update_cpu_metrics_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: cpu_metrics_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: cpu_metrics_set_input
+    pk_columns: cpu_metrics_pk_columns_input!
+  ): cpu_metrics
+
+  """
+  update multiples rows of table: "cpu_metrics"
+  """
+  update_cpu_metrics_many(
+    """updates to execute, in order"""
+    updates: [cpu_metrics_updates!]!
+  ): [cpu_metrics_mutation_response]
+
+  """
+  update data of the table: "errors"
+  """
+  update_errors(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: errors_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: errors_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: errors_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: errors_delete_key_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: errors_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: errors_set_input
+
+    """filter the rows which have to be updated"""
+    where: errors_bool_exp!
+  ): errors_mutation_response
+
+  """
+  update single row of the table: "errors"
+  """
+  update_errors_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: errors_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: errors_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: errors_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: errors_delete_key_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: errors_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: errors_set_input
+    pk_columns: errors_pk_columns_input!
+  ): errors
+
+  """
+  update multiples rows of table: "errors"
+  """
+  update_errors_many(
+    """updates to execute, in order"""
+    updates: [errors_updates!]!
+  ): [errors_mutation_response]
+
+  """
+  update data of the table: "fps_logs"
+  """
+  update_fps_logs(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: fps_logs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: fps_logs_set_input
+
+    """filter the rows which have to be updated"""
+    where: fps_logs_bool_exp!
+  ): fps_logs_mutation_response
+
+  """
+  update single row of the table: "fps_logs"
+  """
+  update_fps_logs_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: fps_logs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: fps_logs_set_input
+    pk_columns: fps_logs_pk_columns_input!
+  ): fps_logs
+
+  """
+  update multiples rows of table: "fps_logs"
+  """
+  update_fps_logs_many(
+    """updates to execute, in order"""
+    updates: [fps_logs_updates!]!
+  ): [fps_logs_mutation_response]
+
+  """
+  update data of the table: "memory_logs"
+  """
+  update_memory_logs(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: memory_logs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: memory_logs_set_input
+
+    """filter the rows which have to be updated"""
+    where: memory_logs_bool_exp!
+  ): memory_logs_mutation_response
+
+  """
+  update single row of the table: "memory_logs"
+  """
+  update_memory_logs_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: memory_logs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: memory_logs_set_input
+    pk_columns: memory_logs_pk_columns_input!
+  ): memory_logs
+
+  """
+  update multiples rows of table: "memory_logs"
+  """
+  update_memory_logs_many(
+    """updates to execute, in order"""
+    updates: [memory_logs_updates!]!
+  ): [memory_logs_mutation_response]
+
+  """
+  update data of the table: "microfrontends"
+  """
+  update_microfrontends(
+    """sets the columns of the filtered rows to the given values"""
+    _set: microfrontends_set_input
+
+    """filter the rows which have to be updated"""
+    where: microfrontends_bool_exp!
+  ): microfrontends_mutation_response
+
+  """
+  update single row of the table: "microfrontends"
+  """
+  update_microfrontends_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: microfrontends_set_input
+    pk_columns: microfrontends_pk_columns_input!
+  ): microfrontends
+
+  """
+  update multiples rows of table: "microfrontends"
+  """
+  update_microfrontends_many(
+    """updates to execute, in order"""
+    updates: [microfrontends_updates!]!
+  ): [microfrontends_mutation_response]
+
+  """
+  update data of the table: "network_requests"
+  """
+  update_network_requests(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: network_requests_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: network_requests_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: network_requests_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: network_requests_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: network_requests_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: network_requests_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: network_requests_set_input
+
+    """filter the rows which have to be updated"""
+    where: network_requests_bool_exp!
+  ): network_requests_mutation_response
+
+  """
+  update single row of the table: "network_requests"
+  """
+  update_network_requests_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: network_requests_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: network_requests_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: network_requests_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: network_requests_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: network_requests_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: network_requests_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: network_requests_set_input
+    pk_columns: network_requests_pk_columns_input!
+  ): network_requests
+
+  """
+  update multiples rows of table: "network_requests"
+  """
+  update_network_requests_many(
+    """updates to execute, in order"""
+    updates: [network_requests_updates!]!
+  ): [network_requests_mutation_response]
+
+  """
+  update data of the table: "session"
+  """
+  update_session(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: session_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: session_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: session_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: session_delete_key_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: session_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: session_set_input
+
+    """filter the rows which have to be updated"""
+    where: session_bool_exp!
+  ): session_mutation_response
+
+  """
+  update single row of the table: "session"
+  """
+  update_session_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: session_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: session_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: session_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: session_delete_key_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: session_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: session_set_input
+    pk_columns: session_pk_columns_input!
+  ): session
+
+  """
+  update multiples rows of table: "session"
+  """
+  update_session_many(
+    """updates to execute, in order"""
+    updates: [session_updates!]!
+  ): [session_mutation_response]
+}
+
+"""
+columns and relationships of "network_requests"
+"""
+type network_requests {
+  created_at: timestamptz!
+  headers(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  id: uuid!
+  method: String!
+  microfrontend_id: uuid!
+  payload(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  response_body(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  response_size_bytes: Int!
+  session_id: uuid!
+  status: Int!
+  time_taken_ms: Float!
+  url: String!
+}
+
+"""
+aggregated selection of "network_requests"
+"""
+type network_requests_aggregate {
+  aggregate: network_requests_aggregate_fields
+  nodes: [network_requests!]!
+}
+
+"""
+aggregate fields of "network_requests"
+"""
+type network_requests_aggregate_fields {
+  avg: network_requests_avg_fields
+  count(columns: [network_requests_select_column!], distinct: Boolean): Int!
+  max: network_requests_max_fields
+  min: network_requests_min_fields
+  stddev: network_requests_stddev_fields
+  stddev_pop: network_requests_stddev_pop_fields
+  stddev_samp: network_requests_stddev_samp_fields
+  sum: network_requests_sum_fields
+  var_pop: network_requests_var_pop_fields
+  var_samp: network_requests_var_samp_fields
+  variance: network_requests_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input network_requests_append_input {
+  headers: jsonb
+  payload: jsonb
+  response_body: jsonb
+}
+
+"""aggregate avg on columns"""
+type network_requests_avg_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""
+Boolean expression to filter rows from the table "network_requests". All fields are combined with a logical 'AND'.
+"""
+input network_requests_bool_exp {
+  _and: [network_requests_bool_exp!]
+  _not: network_requests_bool_exp
+  _or: [network_requests_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  headers: jsonb_comparison_exp
+  id: uuid_comparison_exp
+  method: String_comparison_exp
+  microfrontend_id: uuid_comparison_exp
+  payload: jsonb_comparison_exp
+  response_body: jsonb_comparison_exp
+  response_size_bytes: Int_comparison_exp
+  session_id: uuid_comparison_exp
+  status: Int_comparison_exp
+  time_taken_ms: Float_comparison_exp
+  url: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "network_requests"
+"""
+enum network_requests_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  network_requests_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input network_requests_delete_at_path_input {
+  headers: [String!]
+  payload: [String!]
+  response_body: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input network_requests_delete_elem_input {
+  headers: Int
+  payload: Int
+  response_body: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input network_requests_delete_key_input {
+  headers: String
+  payload: String
+  response_body: String
+}
+
+"""
+input type for incrementing numeric columns in table "network_requests"
+"""
+input network_requests_inc_input {
+  response_size_bytes: Int
+  status: Int
+  time_taken_ms: Float
+}
+
+"""
+input type for inserting data into table "network_requests"
+"""
+input network_requests_insert_input {
+  created_at: timestamptz
+  headers: jsonb
+  id: uuid
+  method: String
+  microfrontend_id: uuid
+  payload: jsonb
+  response_body: jsonb
+  response_size_bytes: Int
+  session_id: uuid
+  status: Int
+  time_taken_ms: Float
+  url: String
+}
+
+"""aggregate max on columns"""
+type network_requests_max_fields {
+  created_at: timestamptz
+  id: uuid
+  method: String
+  microfrontend_id: uuid
+  response_size_bytes: Int
+  session_id: uuid
+  status: Int
+  time_taken_ms: Float
+  url: String
+}
+
+"""aggregate min on columns"""
+type network_requests_min_fields {
+  created_at: timestamptz
+  id: uuid
+  method: String
+  microfrontend_id: uuid
+  response_size_bytes: Int
+  session_id: uuid
+  status: Int
+  time_taken_ms: Float
+  url: String
+}
+
+"""
+response of any mutation on the table "network_requests"
+"""
+type network_requests_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [network_requests!]!
+}
+
+"""
+on_conflict condition type for table "network_requests"
+"""
+input network_requests_on_conflict {
+  constraint: network_requests_constraint!
+  update_columns: [network_requests_update_column!]! = []
+  where: network_requests_bool_exp
+}
+
+"""Ordering options when selecting data from "network_requests"."""
+input network_requests_order_by {
+  created_at: order_by
+  headers: order_by
+  id: order_by
+  method: order_by
+  microfrontend_id: order_by
+  payload: order_by
+  response_body: order_by
+  response_size_bytes: order_by
+  session_id: order_by
+  status: order_by
+  time_taken_ms: order_by
+  url: order_by
+}
+
+"""primary key columns input for table: network_requests"""
+input network_requests_pk_columns_input {
+  id: uuid!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input network_requests_prepend_input {
+  headers: jsonb
+  payload: jsonb
+  response_body: jsonb
+}
+
+"""
+select columns of table "network_requests"
+"""
+enum network_requests_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  headers
+
+  """column name"""
+  id
+
+  """column name"""
+  method
+
+  """column name"""
+  microfrontend_id
+
+  """column name"""
+  payload
+
+  """column name"""
+  response_body
+
+  """column name"""
+  response_size_bytes
+
+  """column name"""
+  session_id
+
+  """column name"""
+  status
+
+  """column name"""
+  time_taken_ms
+
+  """column name"""
+  url
+}
+
+"""
+input type for updating data in table "network_requests"
+"""
+input network_requests_set_input {
+  created_at: timestamptz
+  headers: jsonb
+  id: uuid
+  method: String
+  microfrontend_id: uuid
+  payload: jsonb
+  response_body: jsonb
+  response_size_bytes: Int
+  session_id: uuid
+  status: Int
+  time_taken_ms: Float
+  url: String
+}
+
+"""aggregate stddev on columns"""
+type network_requests_stddev_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type network_requests_stddev_pop_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type network_requests_stddev_samp_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""
+Streaming cursor of the table "network_requests"
+"""
+input network_requests_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: network_requests_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input network_requests_stream_cursor_value_input {
+  created_at: timestamptz
+  headers: jsonb
+  id: uuid
+  method: String
+  microfrontend_id: uuid
+  payload: jsonb
+  response_body: jsonb
+  response_size_bytes: Int
+  session_id: uuid
+  status: Int
+  time_taken_ms: Float
+  url: String
+}
+
+"""aggregate sum on columns"""
+type network_requests_sum_fields {
+  response_size_bytes: Int
+  status: Int
+  time_taken_ms: Float
+}
+
+"""
+update columns of table "network_requests"
+"""
+enum network_requests_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  headers
+
+  """column name"""
+  id
+
+  """column name"""
+  method
+
+  """column name"""
+  microfrontend_id
+
+  """column name"""
+  payload
+
+  """column name"""
+  response_body
+
+  """column name"""
+  response_size_bytes
+
+  """column name"""
+  session_id
+
+  """column name"""
+  status
+
+  """column name"""
+  time_taken_ms
+
+  """column name"""
+  url
+}
+
+input network_requests_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: network_requests_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: network_requests_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: network_requests_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: network_requests_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: network_requests_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: network_requests_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: network_requests_set_input
+
+  """filter the rows which have to be updated"""
+  where: network_requests_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type network_requests_var_pop_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""aggregate var_samp on columns"""
+type network_requests_var_samp_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""aggregate variance on columns"""
+type network_requests_variance_fields {
+  response_size_bytes: Float
+  status: Float
+  time_taken_ms: Float
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+type query_root {
+  """
+  fetch data from the table: "cpu_metrics"
+  """
+  cpu_metrics(
+    """distinct select on columns"""
+    distinct_on: [cpu_metrics_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [cpu_metrics_order_by!]
+
+    """filter the rows returned"""
+    where: cpu_metrics_bool_exp
+  ): [cpu_metrics!]!
+
+  """
+  fetch aggregated fields from the table: "cpu_metrics"
+  """
+  cpu_metrics_aggregate(
+    """distinct select on columns"""
+    distinct_on: [cpu_metrics_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [cpu_metrics_order_by!]
+
+    """filter the rows returned"""
+    where: cpu_metrics_bool_exp
+  ): cpu_metrics_aggregate!
+
+  """fetch data from the table: "cpu_metrics" using primary key columns"""
+  cpu_metrics_by_pk(id: uuid!): cpu_metrics
+
+  """
+  fetch data from the table: "errors"
+  """
+  errors(
+    """distinct select on columns"""
+    distinct_on: [errors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [errors_order_by!]
+
+    """filter the rows returned"""
+    where: errors_bool_exp
+  ): [errors!]!
+
+  """
+  fetch aggregated fields from the table: "errors"
+  """
+  errors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [errors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [errors_order_by!]
+
+    """filter the rows returned"""
+    where: errors_bool_exp
+  ): errors_aggregate!
+
+  """fetch data from the table: "errors" using primary key columns"""
+  errors_by_pk(id: uuid!): errors
+
+  """
+  fetch data from the table: "fps_logs"
+  """
+  fps_logs(
+    """distinct select on columns"""
+    distinct_on: [fps_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [fps_logs_order_by!]
+
+    """filter the rows returned"""
+    where: fps_logs_bool_exp
+  ): [fps_logs!]!
+
+  """
+  fetch aggregated fields from the table: "fps_logs"
+  """
+  fps_logs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [fps_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [fps_logs_order_by!]
+
+    """filter the rows returned"""
+    where: fps_logs_bool_exp
+  ): fps_logs_aggregate!
+
+  """fetch data from the table: "fps_logs" using primary key columns"""
+  fps_logs_by_pk(id: uuid!): fps_logs
+
+  """
+  fetch data from the table: "memory_logs"
+  """
+  memory_logs(
+    """distinct select on columns"""
+    distinct_on: [memory_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [memory_logs_order_by!]
+
+    """filter the rows returned"""
+    where: memory_logs_bool_exp
+  ): [memory_logs!]!
+
+  """
+  fetch aggregated fields from the table: "memory_logs"
+  """
+  memory_logs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [memory_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [memory_logs_order_by!]
+
+    """filter the rows returned"""
+    where: memory_logs_bool_exp
+  ): memory_logs_aggregate!
+
+  """fetch data from the table: "memory_logs" using primary key columns"""
+  memory_logs_by_pk(id: uuid!): memory_logs
+
+  """
+  fetch data from the table: "microfrontends"
+  """
+  microfrontends(
+    """distinct select on columns"""
+    distinct_on: [microfrontends_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [microfrontends_order_by!]
+
+    """filter the rows returned"""
+    where: microfrontends_bool_exp
+  ): [microfrontends!]!
+
+  """
+  fetch aggregated fields from the table: "microfrontends"
+  """
+  microfrontends_aggregate(
+    """distinct select on columns"""
+    distinct_on: [microfrontends_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [microfrontends_order_by!]
+
+    """filter the rows returned"""
+    where: microfrontends_bool_exp
+  ): microfrontends_aggregate!
+
+  """fetch data from the table: "microfrontends" using primary key columns"""
+  microfrontends_by_pk(id: uuid!): microfrontends
+
+  """
+  fetch data from the table: "network_requests"
+  """
+  network_requests(
+    """distinct select on columns"""
+    distinct_on: [network_requests_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [network_requests_order_by!]
+
+    """filter the rows returned"""
+    where: network_requests_bool_exp
+  ): [network_requests!]!
+
+  """
+  fetch aggregated fields from the table: "network_requests"
+  """
+  network_requests_aggregate(
+    """distinct select on columns"""
+    distinct_on: [network_requests_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [network_requests_order_by!]
+
+    """filter the rows returned"""
+    where: network_requests_bool_exp
+  ): network_requests_aggregate!
+
+  """
+  fetch data from the table: "network_requests" using primary key columns
+  """
+  network_requests_by_pk(id: uuid!): network_requests
+
+  """
+  fetch data from the table: "session"
+  """
+  session(
+    """distinct select on columns"""
+    distinct_on: [session_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [session_order_by!]
+
+    """filter the rows returned"""
+    where: session_bool_exp
+  ): [session!]!
+
+  """
+  fetch aggregated fields from the table: "session"
+  """
+  session_aggregate(
+    """distinct select on columns"""
+    distinct_on: [session_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [session_order_by!]
+
+    """filter the rows returned"""
+    where: session_bool_exp
+  ): session_aggregate!
+
+  """fetch data from the table: "session" using primary key columns"""
+  session_by_pk(id: uuid!): session
+}
+
+"""
+columns and relationships of "session"
+"""
+type session {
+  created_at: timestamptz!
+  id: uuid!
+  metadata(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  name: String!
+  user_id: String!
+}
+
+"""
+aggregated selection of "session"
+"""
+type session_aggregate {
+  aggregate: session_aggregate_fields
+  nodes: [session!]!
+}
+
+"""
+aggregate fields of "session"
+"""
+type session_aggregate_fields {
+  count(columns: [session_select_column!], distinct: Boolean): Int!
+  max: session_max_fields
+  min: session_min_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input session_append_input {
+  metadata: jsonb
+}
+
+"""
+Boolean expression to filter rows from the table "session". All fields are combined with a logical 'AND'.
+"""
+input session_bool_exp {
+  _and: [session_bool_exp!]
+  _not: session_bool_exp
+  _or: [session_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  metadata: jsonb_comparison_exp
+  name: String_comparison_exp
+  user_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "session"
+"""
+enum session_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  session_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input session_delete_at_path_input {
+  metadata: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input session_delete_elem_input {
+  metadata: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input session_delete_key_input {
+  metadata: String
+}
+
+"""
+input type for inserting data into table "session"
+"""
+input session_insert_input {
+  created_at: timestamptz
+  id: uuid
+  metadata: jsonb
+  name: String
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type session_max_fields {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  user_id: String
+}
+
+"""aggregate min on columns"""
+type session_min_fields {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  user_id: String
+}
+
+"""
+response of any mutation on the table "session"
+"""
+type session_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [session!]!
+}
+
+"""
+on_conflict condition type for table "session"
+"""
+input session_on_conflict {
+  constraint: session_constraint!
+  update_columns: [session_update_column!]! = []
+  where: session_bool_exp
+}
+
+"""Ordering options when selecting data from "session"."""
+input session_order_by {
+  created_at: order_by
+  id: order_by
+  metadata: order_by
+  name: order_by
+  user_id: order_by
+}
+
+"""primary key columns input for table: session"""
+input session_pk_columns_input {
+  id: uuid!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input session_prepend_input {
+  metadata: jsonb
+}
+
+"""
+select columns of table "session"
+"""
+enum session_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  metadata
+
+  """column name"""
+  name
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "session"
+"""
+input session_set_input {
+  created_at: timestamptz
+  id: uuid
+  metadata: jsonb
+  name: String
+  user_id: String
+}
+
+"""
+Streaming cursor of the table "session"
+"""
+input session_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: session_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input session_stream_cursor_value_input {
+  created_at: timestamptz
+  id: uuid
+  metadata: jsonb
+  name: String
+  user_id: String
+}
+
+"""
+update columns of table "session"
+"""
+enum session_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  metadata
+
+  """column name"""
+  name
+
+  """column name"""
+  user_id
+}
+
+input session_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: session_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: session_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: session_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: session_delete_key_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: session_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: session_set_input
+
+  """filter the rows which have to be updated"""
+  where: session_bool_exp!
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "cpu_metrics"
+  """
+  cpu_metrics(
+    """distinct select on columns"""
+    distinct_on: [cpu_metrics_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [cpu_metrics_order_by!]
+
+    """filter the rows returned"""
+    where: cpu_metrics_bool_exp
+  ): [cpu_metrics!]!
+
+  """
+  fetch aggregated fields from the table: "cpu_metrics"
+  """
+  cpu_metrics_aggregate(
+    """distinct select on columns"""
+    distinct_on: [cpu_metrics_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [cpu_metrics_order_by!]
+
+    """filter the rows returned"""
+    where: cpu_metrics_bool_exp
+  ): cpu_metrics_aggregate!
+
+  """fetch data from the table: "cpu_metrics" using primary key columns"""
+  cpu_metrics_by_pk(id: uuid!): cpu_metrics
+
+  """
+  fetch data from the table in a streaming manner: "cpu_metrics"
+  """
+  cpu_metrics_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [cpu_metrics_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: cpu_metrics_bool_exp
+  ): [cpu_metrics!]!
+
+  """
+  fetch data from the table: "errors"
+  """
+  errors(
+    """distinct select on columns"""
+    distinct_on: [errors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [errors_order_by!]
+
+    """filter the rows returned"""
+    where: errors_bool_exp
+  ): [errors!]!
+
+  """
+  fetch aggregated fields from the table: "errors"
+  """
+  errors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [errors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [errors_order_by!]
+
+    """filter the rows returned"""
+    where: errors_bool_exp
+  ): errors_aggregate!
+
+  """fetch data from the table: "errors" using primary key columns"""
+  errors_by_pk(id: uuid!): errors
+
+  """
+  fetch data from the table in a streaming manner: "errors"
+  """
+  errors_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [errors_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: errors_bool_exp
+  ): [errors!]!
+
+  """
+  fetch data from the table: "fps_logs"
+  """
+  fps_logs(
+    """distinct select on columns"""
+    distinct_on: [fps_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [fps_logs_order_by!]
+
+    """filter the rows returned"""
+    where: fps_logs_bool_exp
+  ): [fps_logs!]!
+
+  """
+  fetch aggregated fields from the table: "fps_logs"
+  """
+  fps_logs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [fps_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [fps_logs_order_by!]
+
+    """filter the rows returned"""
+    where: fps_logs_bool_exp
+  ): fps_logs_aggregate!
+
+  """fetch data from the table: "fps_logs" using primary key columns"""
+  fps_logs_by_pk(id: uuid!): fps_logs
+
+  """
+  fetch data from the table in a streaming manner: "fps_logs"
+  """
+  fps_logs_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [fps_logs_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: fps_logs_bool_exp
+  ): [fps_logs!]!
+
+  """
+  fetch data from the table: "memory_logs"
+  """
+  memory_logs(
+    """distinct select on columns"""
+    distinct_on: [memory_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [memory_logs_order_by!]
+
+    """filter the rows returned"""
+    where: memory_logs_bool_exp
+  ): [memory_logs!]!
+
+  """
+  fetch aggregated fields from the table: "memory_logs"
+  """
+  memory_logs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [memory_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [memory_logs_order_by!]
+
+    """filter the rows returned"""
+    where: memory_logs_bool_exp
+  ): memory_logs_aggregate!
+
+  """fetch data from the table: "memory_logs" using primary key columns"""
+  memory_logs_by_pk(id: uuid!): memory_logs
+
+  """
+  fetch data from the table in a streaming manner: "memory_logs"
+  """
+  memory_logs_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [memory_logs_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: memory_logs_bool_exp
+  ): [memory_logs!]!
+
+  """
+  fetch data from the table: "microfrontends"
+  """
+  microfrontends(
+    """distinct select on columns"""
+    distinct_on: [microfrontends_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [microfrontends_order_by!]
+
+    """filter the rows returned"""
+    where: microfrontends_bool_exp
+  ): [microfrontends!]!
+
+  """
+  fetch aggregated fields from the table: "microfrontends"
+  """
+  microfrontends_aggregate(
+    """distinct select on columns"""
+    distinct_on: [microfrontends_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [microfrontends_order_by!]
+
+    """filter the rows returned"""
+    where: microfrontends_bool_exp
+  ): microfrontends_aggregate!
+
+  """fetch data from the table: "microfrontends" using primary key columns"""
+  microfrontends_by_pk(id: uuid!): microfrontends
+
+  """
+  fetch data from the table in a streaming manner: "microfrontends"
+  """
+  microfrontends_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [microfrontends_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: microfrontends_bool_exp
+  ): [microfrontends!]!
+
+  """
+  fetch data from the table: "network_requests"
+  """
+  network_requests(
+    """distinct select on columns"""
+    distinct_on: [network_requests_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [network_requests_order_by!]
+
+    """filter the rows returned"""
+    where: network_requests_bool_exp
+  ): [network_requests!]!
+
+  """
+  fetch aggregated fields from the table: "network_requests"
+  """
+  network_requests_aggregate(
+    """distinct select on columns"""
+    distinct_on: [network_requests_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [network_requests_order_by!]
+
+    """filter the rows returned"""
+    where: network_requests_bool_exp
+  ): network_requests_aggregate!
+
+  """
+  fetch data from the table: "network_requests" using primary key columns
+  """
+  network_requests_by_pk(id: uuid!): network_requests
+
+  """
+  fetch data from the table in a streaming manner: "network_requests"
+  """
+  network_requests_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [network_requests_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: network_requests_bool_exp
+  ): [network_requests!]!
+
+  """
+  fetch data from the table: "session"
+  """
+  session(
+    """distinct select on columns"""
+    distinct_on: [session_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [session_order_by!]
+
+    """filter the rows returned"""
+    where: session_bool_exp
+  ): [session!]!
+
+  """
+  fetch aggregated fields from the table: "session"
+  """
+  session_aggregate(
+    """distinct select on columns"""
+    distinct_on: [session_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [session_order_by!]
+
+    """filter the rows returned"""
+    where: session_bool_exp
+  ): session_aggregate!
+
+  """fetch data from the table: "session" using primary key columns"""
+  session_by_pk(id: uuid!): session
+
+  """
+  fetch data from the table in a streaming manner: "session"
+  """
+  session_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [session_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: session_bool_exp
+  ): [session!]!
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}

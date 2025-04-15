@@ -1,0 +1,27 @@
+{
+    "name": "vite-plugin-spectra",
+    "version": "0.0.1",
+    "description": "A Vite plugin for monitoring microfrontends",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "dev": "pnpm build --watch",
+        "build": "vite build",
+        "gen": "gql.tada generate schema 'https://spectra.hasura.app/v1/graphql' -o ./generated/spectra.graphql --header \"x-hasura-admin-secret: fQkD71CkbJaI0YMWIGOHp2RptfvYn5tjumtUcfjQj6Ja4n4oooUru6W25ZeJys9d\" && gql-tada generate output"
+    },
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^22.13.14",
+        "cross-env": "^7.0.3",
+        "typescript": "^5.8.2",
+        "vite": "^6.2.3",
+        "vite-plugin-dts": "^4.5.3"
+    },
+    "dependencies": {
+        "@types/react": "^19.1.0",
+        "@urql/core": "^5.1.1",
+        "gql.tada": "^1.8.10"
+    }
+}
