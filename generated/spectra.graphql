@@ -619,6 +619,244 @@ input errors_updates {
 }
 
 """
+columns and relationships of "event_loop_logs"
+"""
+type event_loop_logs {
+  duration_ms: Float!
+  id: uuid!
+  session_id: uuid!
+  type: String!
+}
+
+"""
+aggregated selection of "event_loop_logs"
+"""
+type event_loop_logs_aggregate {
+  aggregate: event_loop_logs_aggregate_fields
+  nodes: [event_loop_logs!]!
+}
+
+"""
+aggregate fields of "event_loop_logs"
+"""
+type event_loop_logs_aggregate_fields {
+  avg: event_loop_logs_avg_fields
+  count(columns: [event_loop_logs_select_column!], distinct: Boolean): Int!
+  max: event_loop_logs_max_fields
+  min: event_loop_logs_min_fields
+  stddev: event_loop_logs_stddev_fields
+  stddev_pop: event_loop_logs_stddev_pop_fields
+  stddev_samp: event_loop_logs_stddev_samp_fields
+  sum: event_loop_logs_sum_fields
+  var_pop: event_loop_logs_var_pop_fields
+  var_samp: event_loop_logs_var_samp_fields
+  variance: event_loop_logs_variance_fields
+}
+
+"""aggregate avg on columns"""
+type event_loop_logs_avg_fields {
+  duration_ms: Float
+}
+
+"""
+Boolean expression to filter rows from the table "event_loop_logs". All fields are combined with a logical 'AND'.
+"""
+input event_loop_logs_bool_exp {
+  _and: [event_loop_logs_bool_exp!]
+  _not: event_loop_logs_bool_exp
+  _or: [event_loop_logs_bool_exp!]
+  duration_ms: Float_comparison_exp
+  id: uuid_comparison_exp
+  session_id: uuid_comparison_exp
+  type: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "event_loop_logs"
+"""
+enum event_loop_logs_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  event_loop_logs_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "event_loop_logs"
+"""
+input event_loop_logs_inc_input {
+  duration_ms: Float
+}
+
+"""
+input type for inserting data into table "event_loop_logs"
+"""
+input event_loop_logs_insert_input {
+  duration_ms: Float
+  id: uuid
+  session_id: uuid
+  type: String
+}
+
+"""aggregate max on columns"""
+type event_loop_logs_max_fields {
+  duration_ms: Float
+  id: uuid
+  session_id: uuid
+  type: String
+}
+
+"""aggregate min on columns"""
+type event_loop_logs_min_fields {
+  duration_ms: Float
+  id: uuid
+  session_id: uuid
+  type: String
+}
+
+"""
+response of any mutation on the table "event_loop_logs"
+"""
+type event_loop_logs_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [event_loop_logs!]!
+}
+
+"""
+on_conflict condition type for table "event_loop_logs"
+"""
+input event_loop_logs_on_conflict {
+  constraint: event_loop_logs_constraint!
+  update_columns: [event_loop_logs_update_column!]! = []
+  where: event_loop_logs_bool_exp
+}
+
+"""Ordering options when selecting data from "event_loop_logs"."""
+input event_loop_logs_order_by {
+  duration_ms: order_by
+  id: order_by
+  session_id: order_by
+  type: order_by
+}
+
+"""primary key columns input for table: event_loop_logs"""
+input event_loop_logs_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "event_loop_logs"
+"""
+enum event_loop_logs_select_column {
+  """column name"""
+  duration_ms
+
+  """column name"""
+  id
+
+  """column name"""
+  session_id
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "event_loop_logs"
+"""
+input event_loop_logs_set_input {
+  duration_ms: Float
+  id: uuid
+  session_id: uuid
+  type: String
+}
+
+"""aggregate stddev on columns"""
+type event_loop_logs_stddev_fields {
+  duration_ms: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type event_loop_logs_stddev_pop_fields {
+  duration_ms: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type event_loop_logs_stddev_samp_fields {
+  duration_ms: Float
+}
+
+"""
+Streaming cursor of the table "event_loop_logs"
+"""
+input event_loop_logs_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: event_loop_logs_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input event_loop_logs_stream_cursor_value_input {
+  duration_ms: Float
+  id: uuid
+  session_id: uuid
+  type: String
+}
+
+"""aggregate sum on columns"""
+type event_loop_logs_sum_fields {
+  duration_ms: Float
+}
+
+"""
+update columns of table "event_loop_logs"
+"""
+enum event_loop_logs_update_column {
+  """column name"""
+  duration_ms
+
+  """column name"""
+  id
+
+  """column name"""
+  session_id
+
+  """column name"""
+  type
+}
+
+input event_loop_logs_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: event_loop_logs_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: event_loop_logs_set_input
+
+  """filter the rows which have to be updated"""
+  where: event_loop_logs_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type event_loop_logs_var_pop_fields {
+  duration_ms: Float
+}
+
+"""aggregate var_samp on columns"""
+type event_loop_logs_var_samp_fields {
+  duration_ms: Float
+}
+
+"""aggregate variance on columns"""
+type event_loop_logs_variance_fields {
+  duration_ms: Float
+}
+
+"""
 columns and relationships of "fps_logs"
 """
 type fps_logs {
@@ -1405,6 +1643,19 @@ type mutation_root {
   delete_errors_by_pk(id: uuid!): errors
 
   """
+  delete data from the table: "event_loop_logs"
+  """
+  delete_event_loop_logs(
+    """filter the rows which have to be deleted"""
+    where: event_loop_logs_bool_exp!
+  ): event_loop_logs_mutation_response
+
+  """
+  delete single row from the table: "event_loop_logs"
+  """
+  delete_event_loop_logs_by_pk(id: uuid!): event_loop_logs
+
+  """
   delete data from the table: "fps_logs"
   """
   delete_fps_logs(
@@ -1470,6 +1721,45 @@ type mutation_root {
   delete_session_by_pk(id: uuid!): session
 
   """
+  delete data from the table: "shared_sessions"
+  """
+  delete_shared_sessions(
+    """filter the rows which have to be deleted"""
+    where: shared_sessions_bool_exp!
+  ): shared_sessions_mutation_response
+
+  """
+  delete single row from the table: "shared_sessions"
+  """
+  delete_shared_sessions_by_pk(session_id: uuid!, user_id: String!): shared_sessions
+
+  """
+  delete data from the table: "user_settings"
+  """
+  delete_user_settings(
+    """filter the rows which have to be deleted"""
+    where: user_settings_bool_exp!
+  ): user_settings_mutation_response
+
+  """
+  delete single row from the table: "user_settings"
+  """
+  delete_user_settings_by_pk(payload_threshold_large_kb: Int!): user_settings
+
+  """
+  delete data from the table: "users"
+  """
+  delete_users(
+    """filter the rows which have to be deleted"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  delete single row from the table: "users"
+  """
+  delete_users_by_pk(id: String!): users
+
+  """
   insert data into the table: "cpu_metrics"
   """
   insert_cpu_metrics(
@@ -1512,6 +1802,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: errors_on_conflict
   ): errors
+
+  """
+  insert data into the table: "event_loop_logs"
+  """
+  insert_event_loop_logs(
+    """the rows to be inserted"""
+    objects: [event_loop_logs_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: event_loop_logs_on_conflict
+  ): event_loop_logs_mutation_response
+
+  """
+  insert a single row into the table: "event_loop_logs"
+  """
+  insert_event_loop_logs_one(
+    """the row to be inserted"""
+    object: event_loop_logs_insert_input!
+
+    """upsert condition"""
+    on_conflict: event_loop_logs_on_conflict
+  ): event_loop_logs
 
   """
   insert data into the table: "fps_logs"
@@ -1624,6 +1936,72 @@ type mutation_root {
   ): session
 
   """
+  insert data into the table: "shared_sessions"
+  """
+  insert_shared_sessions(
+    """the rows to be inserted"""
+    objects: [shared_sessions_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: shared_sessions_on_conflict
+  ): shared_sessions_mutation_response
+
+  """
+  insert a single row into the table: "shared_sessions"
+  """
+  insert_shared_sessions_one(
+    """the row to be inserted"""
+    object: shared_sessions_insert_input!
+
+    """upsert condition"""
+    on_conflict: shared_sessions_on_conflict
+  ): shared_sessions
+
+  """
+  insert data into the table: "user_settings"
+  """
+  insert_user_settings(
+    """the rows to be inserted"""
+    objects: [user_settings_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: user_settings_on_conflict
+  ): user_settings_mutation_response
+
+  """
+  insert a single row into the table: "user_settings"
+  """
+  insert_user_settings_one(
+    """the row to be inserted"""
+    object: user_settings_insert_input!
+
+    """upsert condition"""
+    on_conflict: user_settings_on_conflict
+  ): user_settings
+
+  """
+  insert data into the table: "users"
+  """
+  insert_users(
+    """the rows to be inserted"""
+    objects: [users_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  """
+  insert a single row into the table: "users"
+  """
+  insert_users_one(
+    """the row to be inserted"""
+    object: users_insert_input!
+
+    """upsert condition"""
+    on_conflict: users_on_conflict
+  ): users
+
+  """
   update data of the table: "cpu_metrics"
   """
   update_cpu_metrics(
@@ -1726,6 +2104,40 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [errors_updates!]!
   ): [errors_mutation_response]
+
+  """
+  update data of the table: "event_loop_logs"
+  """
+  update_event_loop_logs(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: event_loop_logs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: event_loop_logs_set_input
+
+    """filter the rows which have to be updated"""
+    where: event_loop_logs_bool_exp!
+  ): event_loop_logs_mutation_response
+
+  """
+  update single row of the table: "event_loop_logs"
+  """
+  update_event_loop_logs_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: event_loop_logs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: event_loop_logs_set_input
+    pk_columns: event_loop_logs_pk_columns_input!
+  ): event_loop_logs
+
+  """
+  update multiples rows of table: "event_loop_logs"
+  """
+  update_event_loop_logs_many(
+    """updates to execute, in order"""
+    updates: [event_loop_logs_updates!]!
+  ): [event_loop_logs_mutation_response]
 
   """
   update data of the table: "fps_logs"
@@ -1968,6 +2380,96 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [session_updates!]!
   ): [session_mutation_response]
+
+  """
+  update data of the table: "shared_sessions"
+  """
+  update_shared_sessions(
+    """sets the columns of the filtered rows to the given values"""
+    _set: shared_sessions_set_input
+
+    """filter the rows which have to be updated"""
+    where: shared_sessions_bool_exp!
+  ): shared_sessions_mutation_response
+
+  """
+  update single row of the table: "shared_sessions"
+  """
+  update_shared_sessions_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: shared_sessions_set_input
+    pk_columns: shared_sessions_pk_columns_input!
+  ): shared_sessions
+
+  """
+  update multiples rows of table: "shared_sessions"
+  """
+  update_shared_sessions_many(
+    """updates to execute, in order"""
+    updates: [shared_sessions_updates!]!
+  ): [shared_sessions_mutation_response]
+
+  """
+  update data of the table: "user_settings"
+  """
+  update_user_settings(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: user_settings_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_settings_set_input
+
+    """filter the rows which have to be updated"""
+    where: user_settings_bool_exp!
+  ): user_settings_mutation_response
+
+  """
+  update single row of the table: "user_settings"
+  """
+  update_user_settings_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: user_settings_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_settings_set_input
+    pk_columns: user_settings_pk_columns_input!
+  ): user_settings
+
+  """
+  update multiples rows of table: "user_settings"
+  """
+  update_user_settings_many(
+    """updates to execute, in order"""
+    updates: [user_settings_updates!]!
+  ): [user_settings_mutation_response]
+
+  """
+  update data of the table: "users"
+  """
+  update_users(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  update single row of the table: "users"
+  """
+  update_users_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+    pk_columns: users_pk_columns_input!
+  ): users
+
+  """
+  update multiples rows of table: "users"
+  """
+  update_users_many(
+    """updates to execute, in order"""
+    updates: [users_updates!]!
+  ): [users_mutation_response]
 }
 
 """
@@ -2512,6 +3014,49 @@ type query_root {
   errors_by_pk(id: uuid!): errors
 
   """
+  fetch data from the table: "event_loop_logs"
+  """
+  event_loop_logs(
+    """distinct select on columns"""
+    distinct_on: [event_loop_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [event_loop_logs_order_by!]
+
+    """filter the rows returned"""
+    where: event_loop_logs_bool_exp
+  ): [event_loop_logs!]!
+
+  """
+  fetch aggregated fields from the table: "event_loop_logs"
+  """
+  event_loop_logs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [event_loop_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [event_loop_logs_order_by!]
+
+    """filter the rows returned"""
+    where: event_loop_logs_bool_exp
+  ): event_loop_logs_aggregate!
+
+  """fetch data from the table: "event_loop_logs" using primary key columns"""
+  event_loop_logs_by_pk(id: uuid!): event_loop_logs
+
+  """
   fetch data from the table: "fps_logs"
   """
   fps_logs(
@@ -2727,6 +3272,135 @@ type query_root {
 
   """fetch data from the table: "session" using primary key columns"""
   session_by_pk(id: uuid!): session
+
+  """
+  fetch data from the table: "shared_sessions"
+  """
+  shared_sessions(
+    """distinct select on columns"""
+    distinct_on: [shared_sessions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shared_sessions_order_by!]
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): [shared_sessions!]!
+
+  """
+  fetch aggregated fields from the table: "shared_sessions"
+  """
+  shared_sessions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shared_sessions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shared_sessions_order_by!]
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): shared_sessions_aggregate!
+
+  """fetch data from the table: "shared_sessions" using primary key columns"""
+  shared_sessions_by_pk(session_id: uuid!, user_id: String!): shared_sessions
+
+  """
+  fetch data from the table: "user_settings"
+  """
+  user_settings(
+    """distinct select on columns"""
+    distinct_on: [user_settings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_settings_order_by!]
+
+    """filter the rows returned"""
+    where: user_settings_bool_exp
+  ): [user_settings!]!
+
+  """
+  fetch aggregated fields from the table: "user_settings"
+  """
+  user_settings_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_settings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_settings_order_by!]
+
+    """filter the rows returned"""
+    where: user_settings_bool_exp
+  ): user_settings_aggregate!
+
+  """fetch data from the table: "user_settings" using primary key columns"""
+  user_settings_by_pk(payload_threshold_large_kb: Int!): user_settings
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: String!): users
 }
 
 """
@@ -2740,6 +3414,46 @@ type session {
     path: String
   ): jsonb
   name: String!
+
+  """
+  fetch data from the table: "shared_sessions"
+  """
+  shared_sessions(
+    """distinct select on columns"""
+    distinct_on: [shared_sessions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shared_sessions_order_by!]
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): [shared_sessions!]!
+
+  """
+  fetch aggregated fields from the table: "shared_sessions"
+  """
+  shared_sessions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shared_sessions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shared_sessions_order_by!]
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): shared_sessions_aggregate!
   user_id: String!
 }
 
@@ -2776,6 +3490,8 @@ input session_bool_exp {
   id: uuid_comparison_exp
   metadata: jsonb_comparison_exp
   name: String_comparison_exp
+  shared_sessions: shared_sessions_bool_exp
+  shared_sessions_aggregate: shared_sessions_aggregate_bool_exp
   user_id: String_comparison_exp
 }
 
@@ -2818,6 +3534,7 @@ input session_insert_input {
   id: uuid
   metadata: jsonb
   name: String
+  shared_sessions: shared_sessions_arr_rel_insert_input
   user_id: String
 }
 
@@ -2863,6 +3580,7 @@ input session_order_by {
   id: order_by
   metadata: order_by
   name: order_by
+  shared_sessions_aggregate: shared_sessions_aggregate_order_by
   user_id: order_by
 }
 
@@ -2974,6 +3692,237 @@ input session_updates {
 
   """filter the rows which have to be updated"""
   where: session_bool_exp!
+}
+
+"""
+columns and relationships of "shared_sessions"
+"""
+type shared_sessions {
+  from: timestamptz
+  session_id: uuid!
+  to: timestamptz
+  user_id: String!
+}
+
+"""
+aggregated selection of "shared_sessions"
+"""
+type shared_sessions_aggregate {
+  aggregate: shared_sessions_aggregate_fields
+  nodes: [shared_sessions!]!
+}
+
+input shared_sessions_aggregate_bool_exp {
+  count: shared_sessions_aggregate_bool_exp_count
+}
+
+input shared_sessions_aggregate_bool_exp_count {
+  arguments: [shared_sessions_select_column!]
+  distinct: Boolean
+  filter: shared_sessions_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "shared_sessions"
+"""
+type shared_sessions_aggregate_fields {
+  count(columns: [shared_sessions_select_column!], distinct: Boolean): Int!
+  max: shared_sessions_max_fields
+  min: shared_sessions_min_fields
+}
+
+"""
+order by aggregate values of table "shared_sessions"
+"""
+input shared_sessions_aggregate_order_by {
+  count: order_by
+  max: shared_sessions_max_order_by
+  min: shared_sessions_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "shared_sessions"
+"""
+input shared_sessions_arr_rel_insert_input {
+  data: [shared_sessions_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: shared_sessions_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "shared_sessions". All fields are combined with a logical 'AND'.
+"""
+input shared_sessions_bool_exp {
+  _and: [shared_sessions_bool_exp!]
+  _not: shared_sessions_bool_exp
+  _or: [shared_sessions_bool_exp!]
+  from: timestamptz_comparison_exp
+  session_id: uuid_comparison_exp
+  to: timestamptz_comparison_exp
+  user_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "shared_sessions"
+"""
+enum shared_sessions_constraint {
+  """
+  unique or primary key constraint on columns "user_id", "session_id"
+  """
+  shared_sessions_pkey
+}
+
+"""
+input type for inserting data into table "shared_sessions"
+"""
+input shared_sessions_insert_input {
+  from: timestamptz
+  session_id: uuid
+  to: timestamptz
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type shared_sessions_max_fields {
+  from: timestamptz
+  session_id: uuid
+  to: timestamptz
+  user_id: String
+}
+
+"""
+order by max() on columns of table "shared_sessions"
+"""
+input shared_sessions_max_order_by {
+  from: order_by
+  session_id: order_by
+  to: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type shared_sessions_min_fields {
+  from: timestamptz
+  session_id: uuid
+  to: timestamptz
+  user_id: String
+}
+
+"""
+order by min() on columns of table "shared_sessions"
+"""
+input shared_sessions_min_order_by {
+  from: order_by
+  session_id: order_by
+  to: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "shared_sessions"
+"""
+type shared_sessions_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [shared_sessions!]!
+}
+
+"""
+on_conflict condition type for table "shared_sessions"
+"""
+input shared_sessions_on_conflict {
+  constraint: shared_sessions_constraint!
+  update_columns: [shared_sessions_update_column!]! = []
+  where: shared_sessions_bool_exp
+}
+
+"""Ordering options when selecting data from "shared_sessions"."""
+input shared_sessions_order_by {
+  from: order_by
+  session_id: order_by
+  to: order_by
+  user_id: order_by
+}
+
+"""primary key columns input for table: shared_sessions"""
+input shared_sessions_pk_columns_input {
+  session_id: uuid!
+  user_id: String!
+}
+
+"""
+select columns of table "shared_sessions"
+"""
+enum shared_sessions_select_column {
+  """column name"""
+  from
+
+  """column name"""
+  session_id
+
+  """column name"""
+  to
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "shared_sessions"
+"""
+input shared_sessions_set_input {
+  from: timestamptz
+  session_id: uuid
+  to: timestamptz
+  user_id: String
+}
+
+"""
+Streaming cursor of the table "shared_sessions"
+"""
+input shared_sessions_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: shared_sessions_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input shared_sessions_stream_cursor_value_input {
+  from: timestamptz
+  session_id: uuid
+  to: timestamptz
+  user_id: String
+}
+
+"""
+update columns of table "shared_sessions"
+"""
+enum shared_sessions_update_column {
+  """column name"""
+  from
+
+  """column name"""
+  session_id
+
+  """column name"""
+  to
+
+  """column name"""
+  user_id
+}
+
+input shared_sessions_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: shared_sessions_set_input
+
+  """filter the rows which have to be updated"""
+  where: shared_sessions_bool_exp!
 }
 
 type subscription_root {
@@ -3090,6 +4039,63 @@ type subscription_root {
     """filter the rows returned"""
     where: errors_bool_exp
   ): [errors!]!
+
+  """
+  fetch data from the table: "event_loop_logs"
+  """
+  event_loop_logs(
+    """distinct select on columns"""
+    distinct_on: [event_loop_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [event_loop_logs_order_by!]
+
+    """filter the rows returned"""
+    where: event_loop_logs_bool_exp
+  ): [event_loop_logs!]!
+
+  """
+  fetch aggregated fields from the table: "event_loop_logs"
+  """
+  event_loop_logs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [event_loop_logs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [event_loop_logs_order_by!]
+
+    """filter the rows returned"""
+    where: event_loop_logs_bool_exp
+  ): event_loop_logs_aggregate!
+
+  """fetch data from the table: "event_loop_logs" using primary key columns"""
+  event_loop_logs_by_pk(id: uuid!): event_loop_logs
+
+  """
+  fetch data from the table in a streaming manner: "event_loop_logs"
+  """
+  event_loop_logs_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [event_loop_logs_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: event_loop_logs_bool_exp
+  ): [event_loop_logs!]!
 
   """
   fetch data from the table: "fps_logs"
@@ -3377,6 +4383,177 @@ type subscription_root {
     """filter the rows returned"""
     where: session_bool_exp
   ): [session!]!
+
+  """
+  fetch data from the table: "shared_sessions"
+  """
+  shared_sessions(
+    """distinct select on columns"""
+    distinct_on: [shared_sessions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shared_sessions_order_by!]
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): [shared_sessions!]!
+
+  """
+  fetch aggregated fields from the table: "shared_sessions"
+  """
+  shared_sessions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [shared_sessions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [shared_sessions_order_by!]
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): shared_sessions_aggregate!
+
+  """fetch data from the table: "shared_sessions" using primary key columns"""
+  shared_sessions_by_pk(session_id: uuid!, user_id: String!): shared_sessions
+
+  """
+  fetch data from the table in a streaming manner: "shared_sessions"
+  """
+  shared_sessions_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [shared_sessions_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: shared_sessions_bool_exp
+  ): [shared_sessions!]!
+
+  """
+  fetch data from the table: "user_settings"
+  """
+  user_settings(
+    """distinct select on columns"""
+    distinct_on: [user_settings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_settings_order_by!]
+
+    """filter the rows returned"""
+    where: user_settings_bool_exp
+  ): [user_settings!]!
+
+  """
+  fetch aggregated fields from the table: "user_settings"
+  """
+  user_settings_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_settings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_settings_order_by!]
+
+    """filter the rows returned"""
+    where: user_settings_bool_exp
+  ): user_settings_aggregate!
+
+  """fetch data from the table: "user_settings" using primary key columns"""
+  user_settings_by_pk(payload_threshold_large_kb: Int!): user_settings
+
+  """
+  fetch data from the table in a streaming manner: "user_settings"
+  """
+  user_settings_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [user_settings_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: user_settings_bool_exp
+  ): [user_settings!]!
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: String!): users
+
+  """
+  fetch data from the table in a streaming manner: "users"
+  """
+  users_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [users_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
 }
 
 scalar timestamptz
@@ -3394,6 +4571,502 @@ input timestamptz_comparison_exp {
   _lte: timestamptz
   _neq: timestamptz
   _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "user_settings"
+"""
+type user_settings {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  id: uuid!
+  payload_threshold_large_kb: Int!
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+  user_id: String!
+}
+
+"""
+aggregated selection of "user_settings"
+"""
+type user_settings_aggregate {
+  aggregate: user_settings_aggregate_fields
+  nodes: [user_settings!]!
+}
+
+"""
+aggregate fields of "user_settings"
+"""
+type user_settings_aggregate_fields {
+  avg: user_settings_avg_fields
+  count(columns: [user_settings_select_column!], distinct: Boolean): Int!
+  max: user_settings_max_fields
+  min: user_settings_min_fields
+  stddev: user_settings_stddev_fields
+  stddev_pop: user_settings_stddev_pop_fields
+  stddev_samp: user_settings_stddev_samp_fields
+  sum: user_settings_sum_fields
+  var_pop: user_settings_var_pop_fields
+  var_samp: user_settings_var_samp_fields
+  variance: user_settings_variance_fields
+}
+
+"""aggregate avg on columns"""
+type user_settings_avg_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""
+Boolean expression to filter rows from the table "user_settings". All fields are combined with a logical 'AND'.
+"""
+input user_settings_bool_exp {
+  _and: [user_settings_bool_exp!]
+  _not: user_settings_bool_exp
+  _or: [user_settings_bool_exp!]
+  allowed_repetition_interval_seconds: Int_comparison_exp
+  default_time_range_minutes: Int_comparison_exp
+  id: uuid_comparison_exp
+  payload_threshold_large_kb: Int_comparison_exp
+  payload_threshold_ok_kb: Int_comparison_exp
+  request_threshold_bad_ms: Int_comparison_exp
+  request_threshold_good_ms: Int_comparison_exp
+  user_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "user_settings"
+"""
+enum user_settings_constraint {
+  """
+  unique or primary key constraint on columns "payload_threshold_large_kb"
+  """
+  user_settings_pkey
+
+  """
+  unique or primary key constraint on columns "user_id"
+  """
+  user_settings_user_id_key
+}
+
+"""
+input type for incrementing numeric columns in table "user_settings"
+"""
+input user_settings_inc_input {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+}
+
+"""
+input type for inserting data into table "user_settings"
+"""
+input user_settings_insert_input {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  id: uuid
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type user_settings_max_fields {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  id: uuid
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+  user_id: String
+}
+
+"""aggregate min on columns"""
+type user_settings_min_fields {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  id: uuid
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+  user_id: String
+}
+
+"""
+response of any mutation on the table "user_settings"
+"""
+type user_settings_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [user_settings!]!
+}
+
+"""
+on_conflict condition type for table "user_settings"
+"""
+input user_settings_on_conflict {
+  constraint: user_settings_constraint!
+  update_columns: [user_settings_update_column!]! = []
+  where: user_settings_bool_exp
+}
+
+"""Ordering options when selecting data from "user_settings"."""
+input user_settings_order_by {
+  allowed_repetition_interval_seconds: order_by
+  default_time_range_minutes: order_by
+  id: order_by
+  payload_threshold_large_kb: order_by
+  payload_threshold_ok_kb: order_by
+  request_threshold_bad_ms: order_by
+  request_threshold_good_ms: order_by
+  user_id: order_by
+}
+
+"""primary key columns input for table: user_settings"""
+input user_settings_pk_columns_input {
+  payload_threshold_large_kb: Int!
+}
+
+"""
+select columns of table "user_settings"
+"""
+enum user_settings_select_column {
+  """column name"""
+  allowed_repetition_interval_seconds
+
+  """column name"""
+  default_time_range_minutes
+
+  """column name"""
+  id
+
+  """column name"""
+  payload_threshold_large_kb
+
+  """column name"""
+  payload_threshold_ok_kb
+
+  """column name"""
+  request_threshold_bad_ms
+
+  """column name"""
+  request_threshold_good_ms
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "user_settings"
+"""
+input user_settings_set_input {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  id: uuid
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+  user_id: String
+}
+
+"""aggregate stddev on columns"""
+type user_settings_stddev_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type user_settings_stddev_pop_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type user_settings_stddev_samp_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""
+Streaming cursor of the table "user_settings"
+"""
+input user_settings_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: user_settings_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input user_settings_stream_cursor_value_input {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  id: uuid
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+  user_id: String
+}
+
+"""aggregate sum on columns"""
+type user_settings_sum_fields {
+  allowed_repetition_interval_seconds: Int
+  default_time_range_minutes: Int
+  payload_threshold_large_kb: Int
+  payload_threshold_ok_kb: Int
+  request_threshold_bad_ms: Int
+  request_threshold_good_ms: Int
+}
+
+"""
+update columns of table "user_settings"
+"""
+enum user_settings_update_column {
+  """column name"""
+  allowed_repetition_interval_seconds
+
+  """column name"""
+  default_time_range_minutes
+
+  """column name"""
+  id
+
+  """column name"""
+  payload_threshold_large_kb
+
+  """column name"""
+  payload_threshold_ok_kb
+
+  """column name"""
+  request_threshold_bad_ms
+
+  """column name"""
+  request_threshold_good_ms
+
+  """column name"""
+  user_id
+}
+
+input user_settings_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: user_settings_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: user_settings_set_input
+
+  """filter the rows which have to be updated"""
+  where: user_settings_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type user_settings_var_pop_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""aggregate var_samp on columns"""
+type user_settings_var_samp_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""aggregate variance on columns"""
+type user_settings_variance_fields {
+  allowed_repetition_interval_seconds: Float
+  default_time_range_minutes: Float
+  payload_threshold_large_kb: Float
+  payload_threshold_ok_kb: Float
+  request_threshold_bad_ms: Float
+  request_threshold_good_ms: Float
+}
+
+"""
+columns and relationships of "users"
+"""
+type users {
+  id: String!
+  username: String!
+}
+
+"""
+aggregated selection of "users"
+"""
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
+}
+
+"""
+aggregate fields of "users"
+"""
+type users_aggregate_fields {
+  count(columns: [users_select_column!], distinct: Boolean): Int!
+  max: users_max_fields
+  min: users_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input users_bool_exp {
+  _and: [users_bool_exp!]
+  _not: users_bool_exp
+  _or: [users_bool_exp!]
+  id: String_comparison_exp
+  username: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum users_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  users_pkey
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input users_insert_input {
+  id: String
+  username: String
+}
+
+"""aggregate max on columns"""
+type users_max_fields {
+  id: String
+  username: String
+}
+
+"""aggregate min on columns"""
+type users_min_fields {
+  id: String
+  username: String
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type users_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [users!]!
+}
+
+"""
+on_conflict condition type for table "users"
+"""
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]! = []
+  where: users_bool_exp
+}
+
+"""Ordering options when selecting data from "users"."""
+input users_order_by {
+  id: order_by
+  username: order_by
+}
+
+"""primary key columns input for table: users"""
+input users_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "users"
+"""
+enum users_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  username
+}
+
+"""
+input type for updating data in table "users"
+"""
+input users_set_input {
+  id: String
+  username: String
+}
+
+"""
+Streaming cursor of the table "users"
+"""
+input users_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: users_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input users_stream_cursor_value_input {
+  id: String
+  username: String
+}
+
+"""
+update columns of table "users"
+"""
+enum users_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  username
+}
+
+input users_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: users_set_input
+
+  """filter the rows which have to be updated"""
+  where: users_bool_exp!
 }
 
 scalar uuid
