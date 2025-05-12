@@ -4,3 +4,4 @@ export * from "./insertMemoryLog.mutation";
 export * from "./insertMicrofrontend.mutation";
 export * from "./insertNetworkRequest.mutation";
 export * from "./insertEventLoopLog.mutation";
+export * from "./insertLocalStorageMetrics.mutation";

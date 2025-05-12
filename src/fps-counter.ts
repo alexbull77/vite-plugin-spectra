@@ -33,7 +33,7 @@ export const setupFpsCounter = ({ sessionId }: { sessionId: string }) => {
       fps: reportedFPS,
     });
 
-    console.log("[Spectra] Inserted FPS log:", reportedFPS);
+    // console.log("[Spectra] Inserted FPS log:", reportedFPS);
 
     // Reset for next window
     minEstimatedFPS = 60;

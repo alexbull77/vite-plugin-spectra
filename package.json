@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "pnpm build --watch",
         "build": "vite build",
-        "gen": "gql.tada generate schema 'https://spectra.hasura.app/v1/graphql' -o ./generated/spectra.graphql --header \"x-hasura-admin-secret: fQkD71CkbJaI0YMWIGOHp2RptfvYn5tjumtUcfjQj6Ja4n4oooUru6W25ZeJys9d\" && gql-tada generate output"
+        "gen": "gql.tada generate schema 'http://localhost:8080/v1/graphql' -o ./generated/spectra.graphql --header \"x-hasura-admin-secret: fQkD71CkbJaI0YMWIGOHp2RptfvYn5tjumtUcfjQj6Ja4n4oooUru6W25ZeJys9d\" && gql-tada generate output"
     },
     "author": "Your Name",
     "license": "MIT",

@@ -37,7 +37,6 @@ const setupMonitor = async ({
     return;
   }
 
-  // ✅ Set only after confirming it wasn't already set
   (window as any)[globalKey] = true;
 
   if (!sessionId || !microfrontendId) {
@@ -49,33 +48,3 @@ const setupMonitor = async ({
   if (networkInterceptor)
     setupNetworkInterceptor({ microfrontendId, sessionId, name });
 };
-
-// export const viteSpectraHeaderPlugin = (name: string) => {
-//     const plugin: PluginOption = {
-//         name: 'vite-plugin-spectra-header',
-//         transform(code, id) {
-//             if (id.endsWith('.ts')) {
-//                 const headerInjection = `
-//                     const originalFetch = window.fetch;
-//                     window.fetch = async (...args) => {
-//                         let [resource, config] = args;
-//                         config = config || {};
-//                         config.headers = config.headers || {};
-
-//                         // Add the x-spectra-microfrontend header
-//                         config.headers['x-spectra-microfrontend'] = '${name}';
-
-//                         return originalFetch(resource, config);
-//                     };
-//                 `
-//                 return {
-//                     code: headerInjection + code,
-//                     map: null, // You can generate source maps here if needed
-//                 }
-//             }
-//             return code
-//         },
-//     }
-
-//     return plugin
-// }
